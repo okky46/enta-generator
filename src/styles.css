@@ -13,7 +13,7 @@ main { max-width: 1400px; margin: auto; padding: 0 clamp(20px, 5vw, 72px) 80px; 
 h1 { font-size: clamp(52px, 7.8vw, 112px); line-height: .93; letter-spacing: -.07em; margin: 0; font-weight: 900; }
 h1 em { color: #e60012; font-style: normal; }
 .hero > p { position: absolute; right: 1%; bottom: 60px; font-size: 14px; line-height: 2; font-weight: 500; }
-.workspace { display: grid; grid-template-columns: minmax(320px, .72fr) minmax(500px, 1.28fr); background: #fff; border: 1px solid #d0ccc3; box-shadow: 0 20px 60px #332d2512; }
+.workspace { display: grid; grid-template-columns: minmax(300px, .72fr) minmax(0, 1.28fr); background: #fff; border: 1px solid #d0ccc3; box-shadow: 0 20px 60px #332d2512; }
 .controls { border-right: 1px solid #d0ccc3; }
 .control-section { padding: 29px 34px; display: grid; grid-template-columns: 40px 1fr; gap: 3px 12px; border-bottom: 1px solid #ddd9d0; }
 .control-section:last-child { border: 0; }
@@ -33,7 +33,7 @@ h1 em { color: #e60012; font-style: normal; }
 .range-control output { font-variant-numeric: tabular-nums; color: #777; }
 input[type='range'] { appearance: none; width: 100%; height: 3px; background: #d0ccc4; margin: 13px 0 4px; }
 input[type='range']::-webkit-slider-thumb { appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #e60012; cursor: pointer; }
-.result-column { background: #e9e6df; padding: clamp(24px, 4vw, 52px); display: flex; flex-direction: column; justify-content: center; }
+.result-column { min-width: 0; background: #e9e6df; padding: clamp(24px, 4vw, 52px); display: flex; flex-direction: column; justify-content: center; }
 .preview-card { background: #151515; padding: 16px 16px 18px; box-shadow: 0 14px 30px #0002; }
 .preview-heading { color: white; font-size: 10px; font-weight: 700; letter-spacing: .12em; display: flex; justify-content: space-between; margin-bottom: 13px; }
 .ratio { color: #888; }
@@ -46,6 +46,8 @@ canvas { width: 100%; height: auto; display: block; background: black; }
 .share { background: white; color: #151515; }
 .share:hover { background: #151515; color: white; }
 .notice { font-size: 11px; text-align: center; margin: 12px 0 0; color: #555; }
+.x-share-link { align-self: center; margin-top: 10px; color: #151515; font-size: 12px; font-weight: 900; text-underline-offset: 3px; }
+.x-share-link:hover { color: #e60012; }
 footer { min-height: 82px; padding: 20px clamp(24px, 5vw, 72px); background: #151515; color: #8e8e8e; display: flex; justify-content: space-between; align-items: center; font-size: 10px; }
 footer b { letter-spacing: .15em; }
 @media (max-width: 850px) {
