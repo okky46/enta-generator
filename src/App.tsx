@@ -14,11 +14,31 @@ function App() {
   const [notice, setNotice] = useState('')
   const [shareFallbackUrl, setShareFallbackUrl] = useState('')
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const uploadRequestRef = useRef(0)
+  const uploadUrlRef = useRef<string | null>(null)
 
   const handleUpload = (file: File) => {
+    const requestId = ++uploadRequestRef.current
+
+    if (uploadUrlRef.current) {
+      URL.revokeObjectURL(uploadUrlRef.current)
+    }
+
     const url = URL.createObjectURL(file)
+    uploadUrlRef.current = url
     const nextImage = new Image()
+
+    const cleanupUrl = () => {
+      URL.revokeObjectURL(url)
+      if (uploadUrlRef.current === url) uploadUrlRef.current = null
+    }
+
     nextImage.onload = () => {
+      if (requestId !== uploadRequestRef.current) {
+        cleanupUrl()
+        return
+      }
+
       setImage(nextImage)
       setFileName(file.name)
       setScale(1)
@@ -26,13 +46,20 @@ function App() {
       setOffsetY(0)
       setNotice('')
       setShareFallbackUrl('')
-      URL.revokeObjectURL(url)
+      cleanupUrl()
     }
+
     nextImage.onerror = () => {
+      if (requestId !== uploadRequestRef.current) {
+        cleanupUrl()
+        return
+      }
+
       setNotice('画像を読み込めませんでした')
       setShareFallbackUrl('')
-      URL.revokeObjectURL(url)
+      cleanupUrl()
     }
+
     nextImage.src = url
   }
 
