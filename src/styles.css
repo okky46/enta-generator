@@ -59,7 +59,7 @@ footer b { letter-spacing: .15em; }
 @media (max-width: 520px) {
   header p { display: none; }
   .hero { padding: 48px 0 36px; }
-  h1 { font-size: 48px; }
+  h1 { font-size: clamp(40px, 12.5vw, 48px); }
   .control-section { padding: 25px 20px; grid-template-columns: 32px minmax(0, 1fr); }
   .result-column { padding: 18px; }
   .text-fields { grid-template-columns: 1fr; }
