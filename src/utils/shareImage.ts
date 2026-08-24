@@ -1,7 +1,7 @@
 const SHARE_TEXT = 'エンタジェネレーターで画像を作りました'
 
 export interface ShareResult {
-  type: 'shared' | 'fallback' | 'cancelled'
+  type: 'shared' | 'fallback'
   message: string
   fallbackUrl?: string
 }
@@ -44,10 +44,10 @@ export async function shareImage(canvas: HTMLCanvasElement): Promise<ShareResult
       if (navigator.canShare?.({ files: [file] })) shareData.files = [file]
       await navigator.share(shareData)
       return { type: 'shared', message: '共有しました' }
-    } catch (error) {
-      if (error instanceof DOMException && error.name === 'AbortError') {
-        return { type: 'cancelled', message: '共有をキャンセルしました' }
-      }
+    } catch {
+      // AbortError is ambiguous across platforms: it can mean either a user
+      // cancellation or that no share target exists. Fall through to the manual
+      // X flow so a failed native share never leaves the user without an option.
     }
   }
 
