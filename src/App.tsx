@@ -12,6 +12,7 @@ function App() {
   const [offsetX, setOffsetX] = useState(0)
   const [offsetY, setOffsetY] = useState(0)
   const [notice, setNotice] = useState('')
+  const [shareFallbackUrl, setShareFallbackUrl] = useState('')
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   const handleUpload = (file: File) => {
@@ -23,10 +24,13 @@ function App() {
       setScale(1)
       setOffsetX(0)
       setOffsetY(0)
+      setNotice('')
+      setShareFallbackUrl('')
       URL.revokeObjectURL(url)
     }
     nextImage.onerror = () => {
       setNotice('画像を読み込めませんでした')
+      setShareFallbackUrl('')
       URL.revokeObjectURL(url)
     }
     nextImage.src = url
@@ -34,8 +38,10 @@ function App() {
 
   const handleShare = async () => {
     if (!canvasRef.current) return
+    setShareFallbackUrl('')
     const result = await shareImage(canvasRef.current)
     setNotice(result.message)
+    setShareFallbackUrl(result.fallbackUrl ?? '')
   }
 
   return (
@@ -60,6 +66,11 @@ function App() {
               <button className="share" onClick={handleShare}><span>↗</span> 共有する</button>
             </div>
             {notice && <p className="notice" role="status">{notice}</p>}
+            {shareFallbackUrl && (
+              <a className="x-share-link" href={shareFallbackUrl} target="_blank" rel="noopener noreferrer">
+                Xで共有する
+              </a>
+            )}
           </div>
         </div>
       </main>
