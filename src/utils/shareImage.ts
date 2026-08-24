@@ -6,10 +6,17 @@ export interface ShareResult {
   fallbackUrl?: string
 }
 
-function canvasToBlob(canvas: HTMLCanvasElement): Promise<Blob> {
-  return new Promise((resolve, reject) => {
-    canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error('PNGを生成できませんでした')), 'image/png')
-  })
+function canvasToPngFile(canvas: HTMLCanvasElement) {
+  const dataUrl = canvas.toDataURL('image/png')
+  const base64 = dataUrl.split(',')[1]
+  const binary = atob(base64)
+  const bytes = new Uint8Array(binary.length)
+
+  for (let index = 0; index < binary.length; index += 1) {
+    bytes[index] = binary.charCodeAt(index)
+  }
+
+  return new File([bytes], 'enta-generator.png', { type: 'image/png' })
 }
 
 function getXIntentUrl() {
@@ -31,8 +38,9 @@ export async function shareImage(canvas: HTMLCanvasElement): Promise<ShareResult
 
   if (navigator.share) {
     try {
-      const blob = await canvasToBlob(canvas)
-      const file = new File([blob], 'enta-generator.png', { type: 'image/png' })
+      // Keep all work before navigator.share synchronous so the click's transient
+      // user activation is still available on browsers that require it.
+      const file = canvasToPngFile(canvas)
       if (navigator.canShare?.({ files: [file] })) shareData.files = [file]
       await navigator.share(shareData)
       return { type: 'shared', message: '共有しました' }
