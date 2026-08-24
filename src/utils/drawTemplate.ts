@@ -61,8 +61,14 @@ export function drawTemplate(context: CanvasRenderingContext2D, options: Templat
     const drawnHeight = image.naturalHeight * coverScale * scale
     const maxTranslateX = Math.max(0, (drawnWidth - imageWidth) / 2)
     const maxTranslateY = Math.max(0, (drawnHeight - FRAME.height) / 2)
-    const translateX = clamp((offsetX / 100) * imageWidth, -maxTranslateX, maxTranslateX)
-    const translateY = clamp((offsetY / 100) * FRAME.height, -maxTranslateY, maxTranslateY)
+
+    // The controls expose -50..50. Map those endpoints to the full available
+    // crop overflow so users can reach either edge without uncovering the frame.
+    const normalizedOffsetX = clamp(offsetX, -50, 50) / 50
+    const normalizedOffsetY = clamp(offsetY, -50, 50) / 50
+    const translateX = normalizedOffsetX * maxTranslateX
+    const translateY = normalizedOffsetY * maxTranslateY
+
     const x = imageX + (imageWidth - drawnWidth) / 2 + translateX
     const y = FRAME.y + (FRAME.height - drawnHeight) / 2 + translateY
     context.drawImage(image, x, y, drawnWidth, drawnHeight)
