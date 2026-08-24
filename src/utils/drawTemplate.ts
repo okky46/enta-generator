@@ -37,6 +37,10 @@ function drawVerticalText(
   context.restore()
 }
 
+function clamp(value: number, min: number, max: number) {
+  return Math.min(Math.max(value, min), max)
+}
+
 export function drawTemplate(context: CanvasRenderingContext2D, options: TemplateOptions) {
   const { image, leftText, rightText, scale, offsetX, offsetY } = options
   const imageX = FRAME.x + BAND_WIDTH
@@ -55,8 +59,12 @@ export function drawTemplate(context: CanvasRenderingContext2D, options: Templat
     const coverScale = Math.max(imageWidth / image.naturalWidth, FRAME.height / image.naturalHeight)
     const drawnWidth = image.naturalWidth * coverScale * scale
     const drawnHeight = image.naturalHeight * coverScale * scale
-    const x = imageX + (imageWidth - drawnWidth) / 2 + (offsetX / 100) * imageWidth
-    const y = FRAME.y + (FRAME.height - drawnHeight) / 2 + (offsetY / 100) * FRAME.height
+    const maxTranslateX = Math.max(0, (drawnWidth - imageWidth) / 2)
+    const maxTranslateY = Math.max(0, (drawnHeight - FRAME.height) / 2)
+    const translateX = clamp((offsetX / 100) * imageWidth, -maxTranslateX, maxTranslateX)
+    const translateY = clamp((offsetY / 100) * FRAME.height, -maxTranslateY, maxTranslateY)
+    const x = imageX + (imageWidth - drawnWidth) / 2 + translateX
+    const y = FRAME.y + (FRAME.height - drawnHeight) / 2 + translateY
     context.drawImage(image, x, y, drawnWidth, drawnHeight)
   } else {
     context.fillStyle = '#202020'
