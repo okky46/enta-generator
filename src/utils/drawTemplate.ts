@@ -13,6 +13,28 @@ export interface TemplateOptions {
 const FRAME = { x: 70, y: 70, width: 1060, height: 760 }
 const BAND_WIDTH = 170
 const RED = '#e60012'
+const ROTATE_IN_VERTICAL = new Set(['ー', '―', '〜', '～', '…', '「', '」', '『', '』', '（', '）', '(', ')', '［', '］', '[', ']', '｛', '｝', '{', '}', '〈', '〉', '《', '》', '【', '】', '〔', '〕'])
+const TOP_RIGHT_IN_VERTICAL = new Set(['。', '、'])
+
+function drawVerticalGlyph(
+  context: CanvasRenderingContext2D,
+  character: string,
+  x: number,
+  y: number,
+  fontSize: number,
+) {
+  context.save()
+  if (ROTATE_IN_VERTICAL.has(character)) {
+    context.translate(x, y)
+    context.rotate(Math.PI / 2)
+    context.fillText(character, 0, 0)
+  } else if (TOP_RIGHT_IN_VERTICAL.has(character)) {
+    context.fillText(character, x + fontSize * 0.25, y - fontSize * 0.25)
+  } else {
+    context.fillText(character, x, y)
+  }
+  context.restore()
+}
 
 function drawVerticalText(
   context: CanvasRenderingContext2D,
@@ -32,7 +54,7 @@ function drawVerticalText(
   context.textAlign = 'center'
   context.textBaseline = 'middle'
   characters.forEach((character, index) => {
-    context.fillText(character, centerX, startY + index * lineHeight)
+    drawVerticalGlyph(context, character, centerX, startY + index * lineHeight, fontSize)
   })
   context.restore()
 }
@@ -62,8 +84,6 @@ export function drawTemplate(context: CanvasRenderingContext2D, options: Templat
     const maxTranslateX = Math.max(0, (drawnWidth - imageWidth) / 2)
     const maxTranslateY = Math.max(0, (drawnHeight - FRAME.height) / 2)
 
-    // The controls expose -50..50. Map those endpoints to the full available
-    // crop overflow so users can reach either edge without uncovering the frame.
     const normalizedOffsetX = clamp(offsetX, -50, 50) / 50
     const normalizedOffsetY = clamp(offsetY, -50, 50) / 50
     const translateX = normalizedOffsetX * maxTranslateX
