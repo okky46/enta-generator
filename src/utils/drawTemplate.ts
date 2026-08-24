@@ -11,7 +11,7 @@ export interface TemplateOptions {
 }
 
 const FRAME = { x: 70, y: 70, width: 1060, height: 760 }
-const BAND_WIDTH = 170
+const BAND_WIDTH = 210
 const RED = '#e60012'
 const ROTATE_IN_VERTICAL = new Set(['ー', '―', '〜', '～', '…', '「', '」', '『', '』', '（', '）', '(', ')', '［', '］', '[', ']', '｛', '｝', '{', '}', '〈', '〉', '《', '》', '【', '】', '〔', '〕'])
 const TOP_RIGHT_IN_VERTICAL = new Set(['。', '、'])
@@ -44,17 +44,23 @@ function drawVerticalText(
 ) {
   const characters = Array.from(text || '　')
   const maxHeight = FRAME.height - 72
-  const fontSize = Math.min(76, maxHeight / Math.max(characters.length, 1) * 0.82)
-  const lineHeight = Math.min(86, maxHeight / Math.max(characters.length, 1))
-  const startY = FRAME.y + FRAME.height / 2 - ((characters.length - 1) * lineHeight) / 2
+  // Keep the glyphs large and heavy regardless of character count. When the
+  // line gets long, compress only its vertical axis instead of reducing type.
+  const fontSize = 132
+  const lineHeight = 116
+  const naturalHeight = fontSize + Math.max(characters.length - 1, 0) * lineHeight
+  const scaleY = Math.min(0.86, maxHeight / naturalHeight)
+  const startY = -((characters.length - 1) * lineHeight) / 2
 
   context.save()
+  context.translate(centerX, FRAME.y + FRAME.height / 2)
+  context.scale(1.04, scaleY)
   context.fillStyle = color
-  context.font = `900 ${fontSize}px "Arial Black", "Noto Sans JP", sans-serif`
+  context.font = `900 ${fontSize}px "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "YuGothic", "Meiryo", sans-serif`
   context.textAlign = 'center'
   context.textBaseline = 'middle'
   characters.forEach((character, index) => {
-    drawVerticalGlyph(context, character, centerX, startY + index * lineHeight, fontSize)
+    drawVerticalGlyph(context, character, 0, startY + index * lineHeight, fontSize)
   })
   context.restore()
 }
