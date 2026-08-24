@@ -74,23 +74,21 @@ function App() {
   return (
     <>
       <header>
-        <a className="brand" href="/enta/" aria-label="エンタジェネレーター ホーム"><span>ENTA</span> GENERATOR</a>
-        <p>写真 × ことばで、<br />あの一枚を。</p>
+        <a className="brand" href="/enta/">エンタジェネレーター</a>
       </header>
       <main>
-        <section className="hero">
-          <div className="eyebrow"><i /> BROWSER IMAGE MAKER</div>
-          <h1>エンタ<br /><em>ジェネレーター</em></h1>
-          <p>写真を選んで、ことばを添える。<br />あなただけの一枚を、かんたんに。</p>
-        </section>
+        <div className="intro">
+          <h1>画像を作成</h1>
+          <p>画像と左右の文字を設定して、PNG画像を作成できます。</p>
+        </div>
 
         <div className="workspace">
           <Controls {...{ leftText, rightText, scale, offsetX, offsetY, fileName }} onUpload={handleUpload} onLeftText={setLeftText} onRightText={setRightText} onScale={setScale} onOffsetX={setOffsetX} onOffsetY={setOffsetY} />
           <div className="result-column">
             <CanvasPreview {...{ image, leftText, rightText, scale, offsetX, offsetY, canvasRef }} />
             <div className="actions">
-              <button className="save" onClick={() => canvasRef.current && downloadImage(canvasRef.current)}><span>↓</span> PNGで保存</button>
-              <button className="share" onClick={handleShare}><span>↗</span> 共有する</button>
+              <button className="save" onClick={() => canvasRef.current && downloadImage(canvasRef.current)}>PNGで保存</button>
+              <button className="share" onClick={handleShare}>共有</button>
             </div>
             {notice && <p className="notice" role="status">{notice}</p>}
             {shareFallbackUrl && (
@@ -101,7 +99,7 @@ function App() {
           </div>
         </div>
       </main>
-      <footer><span>画像は端末内で処理され、サーバーには送信されません。</span><b>© ENTA GENERATOR</b></footer>
+      <footer>画像は端末内で処理され、サーバーには送信されません。</footer>
     </>
   )
 }

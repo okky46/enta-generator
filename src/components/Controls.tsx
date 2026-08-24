@@ -25,10 +25,11 @@ function RangeControl({ label, value, min, max, step = 1, unit = '', onChange }:
 }
 
 export function Controls(props: Props) {
+  const limitText = (value: string) => Array.from(value).slice(0, 15).join('')
+
   return (
     <section className="controls" aria-label="画像編集">
       <div className="control-section upload-section">
-        <span className="step">01</span>
         <div>
           <h2>画像を選ぶ</h2>
           <p>端末内の画像だけを使用します</p>
@@ -41,16 +42,14 @@ export function Controls(props: Props) {
       </div>
 
       <div className="control-section">
-        <span className="step">02</span>
         <div><h2>文字を入れる</h2><p>帯に表示する縦書き文字</p></div>
         <div className="text-fields">
-          <label>左の文字<input value={props.leftText} maxLength={12} onChange={(e) => props.onLeftText(e.target.value)} /></label>
-          <label>右の文字<input value={props.rightText} maxLength={12} onChange={(e) => props.onRightText(e.target.value)} /></label>
+          <label>左の文字<input value={props.leftText} maxLength={15} onChange={(e) => props.onLeftText(limitText(e.target.value))} /></label>
+          <label>右の文字<input value={props.rightText} maxLength={15} onChange={(e) => props.onRightText(limitText(e.target.value))} /></label>
         </div>
       </div>
 
       <div className="control-section">
-        <span className="step">03</span>
         <div><h2>構図を整える</h2><p>画像の大きさと位置を調整</p></div>
         <div className="ranges">
           <RangeControl label="拡大率" value={props.scale} min={1} max={3} step={0.05} unit="×" onChange={props.onScale} />
