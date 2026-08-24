@@ -14,8 +14,8 @@ h1 { font-size: clamp(52px, 7.8vw, 112px); line-height: .93; letter-spacing: -.0
 h1 em { color: #e60012; font-style: normal; }
 .hero > p { position: absolute; right: 1%; bottom: 60px; font-size: 14px; line-height: 2; font-weight: 500; }
 .workspace { display: grid; grid-template-columns: minmax(300px, .72fr) minmax(0, 1.28fr); background: #fff; border: 1px solid #d0ccc3; box-shadow: 0 20px 60px #332d2512; }
-.controls { border-right: 1px solid #d0ccc3; }
-.control-section { padding: 29px 34px; display: grid; grid-template-columns: 40px 1fr; gap: 3px 12px; border-bottom: 1px solid #ddd9d0; }
+.controls { min-width: 0; border-right: 1px solid #d0ccc3; }
+.control-section { min-width: 0; padding: 29px 34px; display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 3px 12px; border-bottom: 1px solid #ddd9d0; }
 .control-section:last-child { border: 0; }
 .step { font-size: 11px; color: #e60012; font-weight: 900; letter-spacing: .1em; padding-top: 5px; }
 .control-section h2 { margin: 0; font-size: 18px; }
@@ -24,10 +24,10 @@ h1 em { color: #e60012; font-style: normal; }
 .upload-button:hover { background: #e60012; }
 .upload-button input { position: absolute; width: 1px; height: 1px; opacity: 0; }
 .file-name { grid-column: 2; margin-top: 8px; font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #777; }
-.text-fields, .ranges { grid-column: 2; display: grid; gap: 13px; }
-.text-fields { grid-template-columns: 1fr 1fr; }
-.text-fields label { font-size: 11px; font-weight: 700; }
-.text-fields input { display: block; width: 100%; margin-top: 7px; padding: 12px; background: #f6f4ef; border: 1px solid #d8d4cb; outline: none; }
+.text-fields, .ranges { min-width: 0; grid-column: 2; display: grid; gap: 13px; }
+.text-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.text-fields label { min-width: 0; font-size: 11px; font-weight: 700; }
+.text-fields input { min-width: 0; display: block; width: 100%; margin-top: 7px; padding: 12px; background: #f6f4ef; border: 1px solid #d8d4cb; outline: none; }
 .text-fields input:focus { border-color: #e60012; }
 .range-control > span { display: flex; justify-content: space-between; font-size: 11px; }
 .range-control output { font-variant-numeric: tabular-nums; color: #777; }
@@ -60,7 +60,7 @@ footer b { letter-spacing: .15em; }
   header p { display: none; }
   .hero { padding: 48px 0 36px; }
   h1 { font-size: 48px; }
-  .control-section { padding: 25px 20px; grid-template-columns: 32px 1fr; }
+  .control-section { padding: 25px 20px; grid-template-columns: 32px minmax(0, 1fr); }
   .result-column { padding: 18px; }
   .text-fields { grid-template-columns: 1fr; }
   .actions { grid-template-columns: 1fr; }
