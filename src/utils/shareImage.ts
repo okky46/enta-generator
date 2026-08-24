@@ -3,6 +3,7 @@ const SHARE_TEXT = 'エンタジェネレーターで画像を作りました'
 export interface ShareResult {
   type: 'shared' | 'fallback' | 'cancelled'
   message: string
+  fallbackUrl?: string
 }
 
 function canvasToBlob(canvas: HTMLCanvasElement): Promise<Blob> {
@@ -11,13 +12,27 @@ function canvasToBlob(canvas: HTMLCanvasElement): Promise<Blob> {
   })
 }
 
+function getXIntentUrl() {
+  return `https://twitter.com/intent/tweet?text=${encodeURIComponent(SHARE_TEXT)}&url=${encodeURIComponent(window.location.href)}`
+}
+
+async function copyShareText() {
+  const shareCopy = `${SHARE_TEXT}\n${window.location.href}`
+  try {
+    await navigator.clipboard.writeText(shareCopy)
+    return true
+  } catch {
+    return false
+  }
+}
+
 export async function shareImage(canvas: HTMLCanvasElement): Promise<ShareResult> {
-  const blob = await canvasToBlob(canvas)
-  const file = new File([blob], 'enta-generator.png', { type: 'image/png' })
   const shareData: ShareData = { title: 'エンタジェネレーター', text: SHARE_TEXT, url: window.location.href }
 
   if (navigator.share) {
     try {
+      const blob = await canvasToBlob(canvas)
+      const file = new File([blob], 'enta-generator.png', { type: 'image/png' })
       if (navigator.canShare?.({ files: [file] })) shareData.files = [file]
       await navigator.share(shareData)
       return { type: 'shared', message: '共有しました' }
@@ -28,11 +43,14 @@ export async function shareImage(canvas: HTMLCanvasElement): Promise<ShareResult
     }
   }
 
-  const shareCopy = `${SHARE_TEXT}\n${window.location.href}`
-  try { await navigator.clipboard.writeText(shareCopy) } catch { /* URL still opens below. */ }
-  const intent = `https://twitter.com/intent/tweet?text=${encodeURIComponent(SHARE_TEXT)}&url=${encodeURIComponent(window.location.href)}`
-  window.open(intent, '_blank', 'noopener,noreferrer')
-  return { type: 'fallback', message: '画像を保存して添付してください。共有文をコピーし、Xを開きました' }
+  const copied = await copyShareText()
+  return {
+    type: 'fallback',
+    message: copied
+      ? '共有文をコピーしました。画像を保存して添付し、「Xで共有」を押してください'
+      : '画像を保存して添付し、「Xで共有」を押してください',
+    fallbackUrl: getXIntentUrl(),
+  }
 }
 
 export function downloadImage(canvas: HTMLCanvasElement) {
