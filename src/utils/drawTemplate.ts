@@ -16,6 +16,24 @@ const RED = '#e60012'
 const ROTATE_IN_VERTICAL = new Set(['ー', '―', '〜', '～', '…', '「', '」', '『', '』', '（', '）', '(', ')', '［', '］', '[', ']', '｛', '｝', '{', '}', '〈', '〉', '《', '》', '【', '】', '〔', '〕'])
 const TOP_RIGHT_IN_VERTICAL = new Set(['。', '、'])
 
+interface VerticalTextStyle {
+  centerXOffset: number
+  lineHeight: number
+  maxScaleY: number
+}
+
+const LEFT_TEXT_STYLE: VerticalTextStyle = {
+  centerXOffset: 0,
+  lineHeight: 120,
+  maxScaleY: 0.9,
+}
+
+const RIGHT_TEXT_STYLE: VerticalTextStyle = {
+  centerXOffset: -8,
+  lineHeight: 116,
+  maxScaleY: 0.9,
+}
+
 function drawVerticalGlyph(
   context: CanvasRenderingContext2D,
   character: string,
@@ -41,19 +59,20 @@ function drawVerticalText(
   text: string,
   centerX: number,
   color: string,
+  style: VerticalTextStyle,
 ) {
   const characters = Array.from(text || '　')
   const maxHeight = FRAME.height - 72
   // Keep the glyphs large and heavy regardless of character count. When the
   // line gets long, compress only its vertical axis instead of reducing type.
   const fontSize = 132
-  const lineHeight = 116
+  const { centerXOffset, lineHeight, maxScaleY } = style
   const naturalHeight = fontSize + Math.max(characters.length - 1, 0) * lineHeight
-  const scaleY = Math.min(0.86, maxHeight / naturalHeight)
+  const scaleY = Math.min(maxScaleY, maxHeight / naturalHeight)
   const startY = -((characters.length - 1) * lineHeight) / 2
 
   context.save()
-  context.translate(centerX, FRAME.y + FRAME.height / 2)
+  context.translate(centerX + centerXOffset, FRAME.y + FRAME.height / 2)
   context.scale(1.04, scaleY)
   context.fillStyle = color
   context.font = `900 ${fontSize}px "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "YuGothic", "Meiryo", sans-serif`
@@ -118,6 +137,6 @@ export function drawTemplate(context: CanvasRenderingContext2D, options: Templat
   context.fillStyle = RED
   context.fillRect(FRAME.x + FRAME.width - BAND_WIDTH, FRAME.y, BAND_WIDTH, FRAME.height)
 
-  drawVerticalText(context, leftText, FRAME.x + BAND_WIDTH / 2, RED)
-  drawVerticalText(context, rightText, FRAME.x + FRAME.width - BAND_WIDTH / 2, '#fff')
+  drawVerticalText(context, leftText, FRAME.x + BAND_WIDTH / 2, RED, LEFT_TEXT_STYLE)
+  drawVerticalText(context, rightText, FRAME.x + FRAME.width - BAND_WIDTH / 2, '#fff', RIGHT_TEXT_STYLE)
 }
