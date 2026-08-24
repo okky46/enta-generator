@@ -4,7 +4,7 @@
 
 ## セットアップ
 
-Vite 7 の要件に合わせ、Node.js 20.19 以降または 22.12 以降を用意し、依存パッケージをインストールします。
+Vite 7 の要件に合わせ、Node.js 20.19 以上の 20 系、または 22.12 以降を用意し、依存パッケージをインストールします。
 
 ```bash
 npm install
@@ -31,7 +31,7 @@ npm run build
 1. このリポジトリを GitHub または GitLab に push します。
 2. Cloudflare Dashboard の **Workers & Pages** から Pages プロジェクトを作成し、リポジトリを接続します。
 3. Framework preset は `Vite`（または None）、Build command は `npm run build`、Output directory は `dist` に設定します。
-4. Node.js は 20.19 以降または 22.12 以降を使用します。
+4. Node.js は 20.19 以上の 20 系、または 22.12 以降を使用します。
 5. 保存してデプロイします。サーバーや環境変数の設定は不要です。
 
 ## 共有機能
