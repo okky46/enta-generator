@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "enta-generator",
+  "compatibility_date": "2026-08-24",
+  "routes": [
+    {
+      "pattern": "jpmeme.com/enta",
+      "zone_name": "jpmeme.com"
+    },
+    {
+      "pattern": "jpmeme.com/enta/*",
+      "zone_name": "jpmeme.com"
+    }
+  ],
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash"
+  }
+}

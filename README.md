@@ -24,15 +24,18 @@ npm run dev
 npm run build
 ```
 
-静的ファイルが `dist` ディレクトリに生成されます。ローカルで本番ビルドを確認する場合は `npm run preview` を実行します。
+静的ファイルが `dist/enta` ディレクトリに生成されます。ローカルで本番ビルドを確認する場合は `npm run preview` を実行します。
 
-## Cloudflare Pages へのデプロイ
+## Cloudflare Workers Static Assets へのデプロイ
 
-1. このリポジトリを GitHub または GitLab に push します。
-2. Cloudflare Dashboard の **Workers & Pages** から Pages プロジェクトを作成し、リポジトリを接続します。
-3. Framework preset は `Vite`（または None）、Build command は `npm run build`、Output directory は `dist` に設定します。
-4. Node.js は 20.19 以上の 20 系、または 22.12 以降を使用します。
-5. 保存してデプロイします。サーバーや環境変数の設定は不要です。
+Cloudflare のビルド環境では Node.js 20.19 以上の 20 系、または 22.12 以降を使用し、次のコマンドを順番に実行します。
+
+```bash
+npm run build
+npx wrangler deploy
+```
+
+デプロイ設定は `wrangler.jsonc` に含まれています。公開 URL は `https://jpmeme.com/enta/` です。
 
 ## 共有機能
 
