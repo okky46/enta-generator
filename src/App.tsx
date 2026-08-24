@@ -74,7 +74,7 @@ function App() {
   return (
     <>
       <header>
-        <a className="brand" href="/" aria-label="エンタジェネレーター ホーム"><span>ENTA</span> GENERATOR</a>
+        <a className="brand" href={import.meta.env.BASE_URL} aria-label="エンタジェネレーター ホーム"><span>ENTA</span> GENERATOR</a>
         <p>写真 × ことばで、<br />あの一枚を。</p>
       </header>
       <main>
