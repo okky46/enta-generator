@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#101010" />
+    <meta name="theme-color" content="#ffffff" />
     <meta name="description" content="ミームやネタ画像を簡単に作れるジェネレーターや、ネットで遊べる診断コンテンツを公開するJP MEME。ブラウザからすぐ遊べます。" />
     <link rel="canonical" href="https://jpmeme.com/" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -16,19 +16,29 @@
     <title>JP MEME｜ミーム・ネタ画像ジェネレーター・診断</title>
   </head>
   <body>
-    <header><span class="brand">JP MEME</span></header>
+    <header>
+      <nav class="site-nav" aria-label="サイト内ナビゲーション">
+        <span class="brand">JP MEME</span>
+        <span class="site-links"><!--PRODUCT_LINKS--></span>
+      </nav>
+    </header>
     <main class="home-main">
-      <section class="home-hero">
-        <p class="eyebrow">PLAY WITH INTERNET CULTURE</p>
-        <h1>JP MEME</h1>
-        <p>ネットで遊べるミーム・ネタ系のジェネレーターや診断をまとめたサイトです。ブラウザから気軽にお楽しみください。</p>
+      <div class="page-head">
+        <h1>ミーム・ネタ画像のジェネレーターと診断</h1>
+        <p>ブラウザだけで動くツールを置いています。画像はあなたの端末の中だけで処理され、サーバーには送信されません。登録は必要ありません。</p>
+      </div>
+      <section class="tool-section" aria-labelledby="tools-title">
+        <h2 id="tools-title">ツール</h2>
+        <ul class="tool-list"><!--PRODUCT_ROWS--></ul>
       </section>
-      <section aria-labelledby="products-title">
-        <h2 id="products-title">公開中のプロダクト</h2>
-        <div class="product-grid"><!--PRODUCT_CARDS--></div>
+      <section class="about-section" aria-labelledby="about-title">
+        <h2 id="about-title">このサイトについて</h2>
+        <p>JP MEME は、ネットのネタや流行りを手を動かして遊べる形にして置いておく場所です。ひとつずつ、思いついた順に増やしています。どのツールもアップロードや会員登録を必要とせず、画像の読み込みから書き出しまですべてブラウザの中で完結します。</p>
       </section>
     </main>
-    <footer>© JP MEME</footer>
+    <footer class="home-footer">
+      <span>© JP MEME</span>
+    </footer>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"JP MEME","url":"https://jpmeme.com/","description":"ミーム・ネタ画像ジェネレーターや診断コンテンツを公開するWebサイト"}</script>
     <script type="module" src="/src/home.ts"></script>
   </body>
