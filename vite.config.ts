@@ -28,8 +28,9 @@ export default defineConfig({
       name: 'product-catalog',
       configureServer(server) {
         server.middlewares.use((req, _res, next) => {
-          if (req.url === '/enta' || req.url?.startsWith('/enta?')) {
-            req.url = req.url.replace(/^\/enta(?=\?|$)/, '/enta/')
+          const url = req.url
+          if (url && (url === '/enta' || url.startsWith('/enta?'))) {
+            req.url = url.replace(/^\/enta(?=\?|$)/, '/enta/')
           }
           next()
         })
