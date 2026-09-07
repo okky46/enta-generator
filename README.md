@@ -11,7 +11,9 @@
 
 ## プロダクトの追加
 
-公開サービスの情報は `src/products.ts` で一元管理しています。将来 `/dopagaki` などを追加するときは、同ファイルへ情報を追加し、そのパスの HTML エントリとアプリを用意して `vite.config.ts` の `build.rollupOptions.input` に登録します。トップのカードと sitemap はプロダクト設定からビルド時に生成されます。
+公開サービスの情報は `src/products.ts` で一元管理しています。将来 `/dopagaki` などを追加するときは、同ファイルの `products` へ情報を追加し、そのパスの HTML エントリとアプリを用意して `vite.config.ts` の `build.rollupOptions.input` に登録します。トップのヘッダーリンク・ツール一覧の行・sitemap は、いずれもプロダクト設定からビルド時に生成されます。
+
+公開前のものは同ファイルの `upcomingProducts` に書くと、トップの一覧にだけ「準備中」の行として並びます（sitemap には載りません）。不要になったら空配列にしてください。
 
 ## セットアップ
 

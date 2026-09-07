@@ -1,17 +1,36 @@
 :root {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
-  color: #222;
-  background: #f7f7f7;
+  /* Uncodixfy の既定パレット Pearl Minimal */
+  --bg: #f8f9fa;
+  --surface: #ffffff;
+  --primary: #0066cc;
+  --primary-hover: #0055ab;
+  --accent: #ff6b35;
+  --text: #212529;
+  --muted: #495057;
+  --subtle: #6c757d;
+  --border: #dee2e6;
+  --thumb-bg: #212529;
+  --thumb-empty: #e9ecef;
+  --radius: 8px;
+  --radius-sm: 6px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, "Noto Sans JP", sans-serif;
+  color: var(--text);
+  background: var(--bg);
   font-synthesis: none;
 }
 * { box-sizing: border-box; }
 body { margin: 0; min-width: 320px; }
 button, input { font: inherit; }
-header { height: 60px; padding: 0 max(20px, calc((100vw - 1180px) / 2)); display: flex; align-items: center; background: #fff; border-bottom: 1px solid #ddd; }
-.brand { color: #222; text-decoration: none; font-size: 18px; font-weight: 700; }
-.site-nav { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-.site-nav a:last-child { color: #555; font-size: 13px; }
-main { max-width: 1180px; margin: 0 auto; padding: 32px 20px 48px; }
+header { height: 56px; padding: 0 max(24px, calc((100vw - 1200px) / 2)); display: flex; align-items: center; background: var(--surface); border-bottom: 1px solid var(--border); }
+.brand { color: var(--text); text-decoration: none; font-size: 15px; font-weight: 600; }
+.site-nav { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.site-nav a:last-child { color: var(--muted); font-size: 14px; text-decoration: none; }
+.site-nav a:last-child:hover { color: var(--primary); }
+.site-links { display: flex; align-items: center; gap: 20px; }
+.site-links a { color: var(--muted); font-size: 14px; text-decoration: none; }
+.site-links a:hover { color: var(--primary); }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+main { max-width: 1200px; margin: 0 auto; padding: 32px 24px 40px; }
 .intro { margin-bottom: 24px; }
 h1 { margin: 0 0 6px; font-size: 26px; line-height: 1.4; }
 .intro p { margin: 0; color: #666; font-size: 14px; }
@@ -46,29 +65,53 @@ canvas { width: 100%; height: auto; display: block; background: #000; border: 1p
 .share:hover { background: #f2f2f2; }
 .notice { margin: 12px 0 0; color: #555; font-size: 12px; }
 .x-share-link { display: inline-block; margin-top: 10px; color: #222; font-size: 13px; }
-footer { padding: 20px; color: #666; background: #fff; border-top: 1px solid #ddd; text-align: center; font-size: 12px; }
+footer { padding: 16px 24px; color: var(--subtle); background: var(--surface); border-top: 1px solid var(--border); text-align: center; font-size: 13px; }
+footer a { color: var(--primary); }
 .seo-content { max-width: 760px; margin: 42px auto 0; padding-top: 30px; border-top: 1px solid #ddd; line-height: 1.8; }
 .seo-content h2 { margin: 0 0 10px; font-size: 20px; }
 .seo-content h3 { margin: 24px 0 6px; font-size: 16px; }
 .seo-content p, .seo-content ol { margin: 0 0 12px; color: #555; font-size: 14px; }
 .disclaimer { margin: 6px 0 0; }
-.home-main { min-height: calc(100vh - 117px); }
-.home-hero { max-width: 720px; padding: 44px 0 54px; }
-.home-hero h1 { font-size: clamp(38px, 7vw, 64px); letter-spacing: .04em; }
-.home-hero > p:last-child { color: #555; font-size: 16px; line-height: 1.9; }
-.eyebrow { margin: 0 0 8px; color: #777; font-size: 11px; font-weight: 700; letter-spacing: .16em; }
-.home-main section > h2 { margin: 0 0 18px; font-size: 20px; }
-.product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 18px; }
-.product-card { display: flex; min-height: 190px; flex-direction: column; padding: 24px; background: #fff; border: 1px solid #d8d8d8; border-radius: 6px; }
-.product-card h3 { margin: 0 0 10px; font-size: 19px; }
-.product-card p { margin: 0 0 22px; color: #666; font-size: 14px; line-height: 1.7; }
-.product-card a { margin-top: auto; color: #222; font-size: 14px; font-weight: 700; }
+.home-main { min-height: calc(100vh - 104px); }
+.page-head { margin-bottom: 32px; }
+.page-head h1 { margin: 0 0 8px; font-size: 26px; font-weight: 600; line-height: 1.45; }
+.page-head p { margin: 0; max-width: 62ch; color: var(--muted); font-size: 15px; line-height: 1.7; }
+.home-main section { margin-bottom: 32px; }
+.home-main section:last-child { margin-bottom: 0; }
+.home-main section > h2 { margin: 0; padding-bottom: 12px; font-size: 16px; font-weight: 600; border-bottom: 1px solid var(--border); }
+.tool-list { margin: 0; padding: 0; list-style: none; }
+.tool-row { display: grid; grid-template-columns: 128px minmax(0, 1fr) auto; gap: 16px; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--border); }
+.tool-thumb { display: flex; justify-content: space-between; gap: 8px; padding: 8px; aspect-ratio: 4 / 3; overflow: hidden; background: var(--thumb-bg); border: 1px solid var(--border); border-radius: var(--radius); }
+.tool-thumb-empty { background: var(--thumb-empty); }
+/* 縦書きの子要素は高さが確定していないと行が潰れるため、flex の stretch で高さを与えます。 */
+.tool-thumb-text { height: 100%; writing-mode: vertical-rl; color: #fff; font-size: 11px; font-weight: 600; }
+.tool-body h3 { margin: 0 0 4px; font-size: 16px; font-weight: 600; }
+.tool-body h3 a { color: var(--text); text-decoration: none; }
+.tool-body h3 a:hover { color: var(--primary); }
+.tool-body p { margin: 0; max-width: 74ch; color: var(--muted); font-size: 14px; line-height: 1.7; }
+.tool-body .tool-meta { margin: 8px 0 0; color: var(--subtle); font-size: 13px; }
+.tool-open { padding: 8px 16px; color: #fff; background: var(--primary); border-radius: var(--radius); font-size: 14px; font-weight: 500; text-decoration: none; white-space: nowrap; transition: background-color 150ms ease; }
+.tool-open:hover { background: var(--primary-hover); }
+.tool-status { padding: 3px 8px; color: var(--accent); border: 1px solid var(--accent); border-radius: var(--radius-sm); font-size: 12px; white-space: nowrap; }
+.is-upcoming .tool-body h3, .is-upcoming .tool-body p { color: var(--subtle); }
+.about-section p { margin: 16px 0 0; max-width: 70ch; color: var(--muted); font-size: 14px; line-height: 1.8; }
+.home-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 48px; padding: 0 max(24px, calc((100vw - 1200px) / 2)); text-align: left; }
 @media (max-width: 800px) {
   main { padding-top: 24px; }
   .workspace { grid-template-columns: 1fr; }
 }
+@media (max-width: 640px) {
+  .page-head { margin-bottom: 24px; }
+  .page-head h1 { font-size: 21px; }
+  .page-head p { font-size: 14px; }
+  .tool-row { grid-template-columns: 88px minmax(0, 1fr); gap: 12px; padding: 16px 0; }
+  .tool-body h3 { font-size: 15px; }
+  .tool-body p { font-size: 13px; }
+  .tool-open, .tool-status { grid-column: 1 / -1; text-align: center; }
+}
 @media (max-width: 480px) {
-  main { padding-inline: 14px; }
+  main { padding-inline: 16px; }
+  header, .home-footer { padding-inline: 16px; }
   .text-fields { grid-template-columns: 1fr; }
   .control-section, .result-column { padding: 18px; }
   .actions { flex-direction: column; }
