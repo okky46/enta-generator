@@ -26,6 +26,14 @@ export default defineConfig({
     react(),
     {
       name: 'product-catalog',
+      configureServer(server) {
+        server.middlewares.use((req, _res, next) => {
+          if (req.url === '/enta' || req.url?.startsWith('/enta?')) {
+            req.url = req.url.replace(/^\/enta(?=\?|$)/, '/enta/')
+          }
+          next()
+        })
+      },
       transformIndexHtml(html) {
         return html.replace('<!--PRODUCT_CARDS-->', productCards)
       },
