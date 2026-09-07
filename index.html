@@ -4,11 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#101010" />
-    <meta name="description" content="写真と縦書きテキストから、4:3のエンタ画像をブラウザだけで作成できます。" />
-    <title>エンタジェネレーター</title>
+    <meta name="description" content="ミームやネタ画像を簡単に作れるジェネレーターや、ネットで遊べる診断コンテンツを公開するJP MEME。ブラウザからすぐ遊べます。" />
+    <link rel="canonical" href="https://jpmeme.com/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="JP MEME" />
+    <meta property="og:title" content="JP MEME｜ミーム・ネタ画像ジェネレーター・診断" />
+    <meta property="og:description" content="ミームやネタ画像を作れるジェネレーターや、ネットで遊べる診断コンテンツを公開しています。" />
+    <meta property="og:url" content="https://jpmeme.com/" />
+    <meta name="twitter:card" content="summary" />
+    <title>JP MEME｜ミーム・ネタ画像ジェネレーター・診断</title>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <header><span class="brand">JP MEME</span></header>
+    <main class="home-main">
+      <section class="home-hero">
+        <p class="eyebrow">PLAY WITH INTERNET CULTURE</p>
+        <h1>JP MEME</h1>
+        <p>ネットで遊べるミーム・ネタ系のジェネレーターや診断をまとめたサイトです。ブラウザから気軽にお楽しみください。</p>
+      </section>
+      <section aria-labelledby="products-title">
+        <h2 id="products-title">公開中のプロダクト</h2>
+        <div class="product-grid"><!--PRODUCT_CARDS--></div>
+      </section>
+    </main>
+    <footer>© JP MEME</footer>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"JP MEME","url":"https://jpmeme.com/","description":"ミーム・ネタ画像ジェネレーターや診断コンテンツを公開するWebサイト"}</script>
+    <script type="module" src="/src/home.ts"></script>
   </body>
 </html>
