@@ -32,7 +32,11 @@ export default defineConfig(({ command }) => {
       {
         name: 'product-catalog',
         transformIndexHtml(html) {
-          return html.replace('<!--PRODUCT_CARDS-->', productCards)
+          const entaBrandHref = command === 'serve' ? '/enta/' : '/enta'
+
+          return html
+            .replace('<!--PRODUCT_CARDS-->', productCards)
+            .replace('__ENTA_BRAND_HREF__', entaBrandHref)
         },
         generateBundle(_options, bundle) {
           const urls = ['/', ...products.map(({ href }) => href)]
