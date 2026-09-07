@@ -1,6 +1,17 @@
-# エンタジェネレーター
+# JP MEME
 
-画像と左右の縦書きテキストから、4:3 の PNG を作成する静的 Web アプリです。画像処理と書き出しは HTML Canvas を使ってブラウザ内で完結します。
+`jpmeme.com` で複数のミーム・ネタ系ジェネレーターや診断サービスを公開・管理する React + Vite 製リポジトリです。
+
+## 公開中のサービス
+
+- `/` — JP MEME トップ・プロダクト一覧
+- `/enta` — エンタジェネレーター（画像と左右の縦書きテキストから 4:3 の PNG を作成）
+
+エンタジェネレーターの画像処理と書き出しは HTML Canvas を使い、ブラウザ内で完結します。
+
+## プロダクトの追加
+
+公開サービスの情報は `src/products.ts` で一元管理しています。将来 `/dopagaki` などを追加するときは、同ファイルへ情報を追加し、そのパスの HTML エントリとアプリを用意して `vite.config.ts` の `build.rollupOptions.input` に登録します。トップのカードと sitemap はプロダクト設定からビルド時に生成されます。
 
 ## セットアップ
 
@@ -24,7 +35,8 @@ npm run dev
 npm run build
 ```
 
-静的ファイルが `dist/enta` ディレクトリに生成されます。ローカルで本番ビルドを確認する場合は `npm run preview` を実行します。
+静的ファイルが `dist` ディレクトリに生成され、トップと各サービスに個別の HTML が用意されます。ローカルで本番ビルドを確認する場合は `npm run preview` を実行します。
+ビルドでは `/enta` と `/enta/` のどちらも直接配信できるよう、同内容の `dist/enta.html` と `dist/enta/index.html` を生成します。
 
 ## Cloudflare Workers Static Assets へのデプロイ
 
@@ -35,7 +47,7 @@ npm run build
 npx wrangler deploy
 ```
 
-デプロイ設定は `wrangler.jsonc` に含まれています。公開 URL は `https://jpmeme.com/enta/` です。
+デプロイ設定は `wrangler.jsonc` に含まれています。既存 Worker 名は `enta-generator` のまま、`jpmeme.com/*` を Static Assets へ配信します。
 
 ## 共有機能
 

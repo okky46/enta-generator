@@ -9,6 +9,8 @@ body { margin: 0; min-width: 320px; }
 button, input { font: inherit; }
 header { height: 60px; padding: 0 max(20px, calc((100vw - 1180px) / 2)); display: flex; align-items: center; background: #fff; border-bottom: 1px solid #ddd; }
 .brand { color: #222; text-decoration: none; font-size: 18px; font-weight: 700; }
+.site-nav { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.site-nav a:last-child { color: #555; font-size: 13px; }
 main { max-width: 1180px; margin: 0 auto; padding: 32px 20px 48px; }
 .intro { margin-bottom: 24px; }
 h1 { margin: 0 0 6px; font-size: 26px; line-height: 1.4; }
@@ -45,6 +47,22 @@ canvas { width: 100%; height: auto; display: block; background: #000; border: 1p
 .notice { margin: 12px 0 0; color: #555; font-size: 12px; }
 .x-share-link { display: inline-block; margin-top: 10px; color: #222; font-size: 13px; }
 footer { padding: 20px; color: #666; background: #fff; border-top: 1px solid #ddd; text-align: center; font-size: 12px; }
+.seo-content { max-width: 760px; margin: 42px auto 0; padding-top: 30px; border-top: 1px solid #ddd; line-height: 1.8; }
+.seo-content h2 { margin: 0 0 10px; font-size: 20px; }
+.seo-content h3 { margin: 24px 0 6px; font-size: 16px; }
+.seo-content p, .seo-content ol { margin: 0 0 12px; color: #555; font-size: 14px; }
+.disclaimer { margin: 6px 0 0; }
+.home-main { min-height: calc(100vh - 117px); }
+.home-hero { max-width: 720px; padding: 44px 0 54px; }
+.home-hero h1 { font-size: clamp(38px, 7vw, 64px); letter-spacing: .04em; }
+.home-hero > p:last-child { color: #555; font-size: 16px; line-height: 1.9; }
+.eyebrow { margin: 0 0 8px; color: #777; font-size: 11px; font-weight: 700; letter-spacing: .16em; }
+.home-main section > h2 { margin: 0 0 18px; font-size: 20px; }
+.product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 18px; }
+.product-card { display: flex; min-height: 190px; flex-direction: column; padding: 24px; background: #fff; border: 1px solid #d8d8d8; border-radius: 6px; }
+.product-card h3 { margin: 0 0 10px; font-size: 19px; }
+.product-card p { margin: 0 0 22px; color: #666; font-size: 14px; line-height: 1.7; }
+.product-card a { margin-top: auto; color: #222; font-size: 14px; font-weight: 700; }
 @media (max-width: 800px) {
   main { padding-top: 24px; }
   .workspace { grid-template-columns: 1fr; }

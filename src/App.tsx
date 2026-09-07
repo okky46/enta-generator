@@ -72,17 +72,7 @@ function App() {
   }
 
   return (
-    <>
-      <header>
-        <a className="brand" href="/enta/">エンタジェネレーター</a>
-      </header>
-      <main>
-        <div className="intro">
-          <h1>画像を作成</h1>
-          <p>画像と左右の文字を設定して、PNG画像を作成できます。</p>
-        </div>
-
-        <div className="workspace">
+    <div className="workspace">
           <Controls {...{ leftText, rightText, scale, offsetX, offsetY, fileName }} onUpload={handleUpload} onLeftText={setLeftText} onRightText={setRightText} onScale={setScale} onOffsetX={setOffsetX} onOffsetY={setOffsetY} />
           <div className="result-column">
             <CanvasPreview {...{ image, leftText, rightText, scale, offsetX, offsetY, canvasRef }} />
@@ -97,10 +87,7 @@ function App() {
               </a>
             )}
           </div>
-        </div>
-      </main>
-      <footer>画像は端末内で処理され、サーバーには送信されません。</footer>
-    </>
+    </div>
   )
 }
 
